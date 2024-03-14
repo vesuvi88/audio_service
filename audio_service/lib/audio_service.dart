@@ -1121,8 +1121,7 @@ class AudioService {
       try {
         await _platform
             .setState(SetStateRequest(state: playbackState._toMessage()));
-        if (playbackState.processingState == AudioProcessingState.idle &&
-            previousState?.processingState != AudioProcessingState.idle) {
+        if (playbackState.processingState == AudioProcessingState.idle) {
           await AudioService._stop();
         }
         previousState = playbackState;
