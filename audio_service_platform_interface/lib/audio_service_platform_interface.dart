@@ -1421,7 +1421,7 @@ class AudioServiceConfigMessage {
         'androidNotificationChannelName': androidNotificationChannelName,
         'androidNotificationChannelDescription':
             androidNotificationChannelDescription,
-        'notificationColor': notificationColor?.value,
+        'notificationColor': notificationColor?._colorValue,
         'androidNotificationIcon': androidNotificationIcon,
         'androidShowNotificationBadge': androidShowNotificationBadge,
         'androidNotificationClickStartsActivity':
@@ -1444,3 +1444,14 @@ class AudioServiceConfigMessage {
 @pragma('vm:prefer-inline')
 Map<String, dynamic>? _castMap(Map<dynamic, dynamic>? map) =>
     map?.cast<String, dynamic>();
+
+/// Reimplements deprecated Color.value.
+extension _ColorExtension on Color {
+  int get _colorValue =>
+      _floatToInt8(a) << 24 |
+      _floatToInt8(r) << 16 |
+      _floatToInt8(g) << 8 |
+      _floatToInt8(b) << 0;
+
+  int _floatToInt8(double x) => (x * 255.0).round() & 0xff;
+}

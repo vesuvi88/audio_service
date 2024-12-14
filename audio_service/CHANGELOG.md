@@ -1,6 +1,6 @@
 ## 0.18.16
 
-* Support for MPNowPlayingInfoPropertyIsLiveStream on IOS
+* Support MPNowPlayingInfoPropertyIsLiveStream on IOS (@MuradSh, @celsoft).
 
 ## 0.18.15
 
