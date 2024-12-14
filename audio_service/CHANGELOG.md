@@ -1,3 +1,7 @@
+## 0.18.16
+
+* Support for MPNowPlayingInfoPropertyIsLiveStream on IOS
+
 ## 0.18.15
 
 * Add deep link support for FlutterFragmentActivity (@jan-milovanovic).
