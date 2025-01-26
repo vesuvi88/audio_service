@@ -17,11 +17,11 @@ class AudioServiceWeb extends AudioServicePlatform {
   web.MediaSession get _mediaSession => web.window.navigator.mediaSession;
 
   final _mediaSessionSupported = _SupportChecker(
-        () => js.globalContext.hasProperty('MediaSession'.toJS).toDart,
+    () => js.globalContext.hasProperty('MediaSession'.toJS).toDart,
     "MediaSession is not supported in this browser, so plugin is no-op",
   );
   final _setPositionStateSupported = _SupportChecker(
-        () => web.window.navigator.mediaSession
+    () => web.window.navigator.mediaSession
         .hasProperty('setPositionState'.toJS)
         .toDart,
     "MediaSession.setPositionState is not supported in this browser",
@@ -112,7 +112,7 @@ class AudioServiceWeb extends AudioServicePlatform {
           );
           break;
         default:
-        // no-op
+          // no-op
           break;
       }
     }
@@ -125,13 +125,13 @@ class AudioServiceWeb extends AudioServicePlatform {
               ((MediaSessionActionDetails details) {
                 // Browsers use seconds
                 handlerCallbacks?.seek(SeekRequest(
-                  position:
-                  Duration(milliseconds: (details.seekTime * 1000).round()),
+                  position: Duration(
+                      milliseconds: (details.seekTime! * 1000).round()),
                 ));
               }).toJS);
           break;
         default:
-        // no-op
+          // no-op
           break;
       }
     }
@@ -164,17 +164,18 @@ class AudioServiceWeb extends AudioServicePlatform {
       return;
     }
     mediaItem = request.mediaItem;
-    final artist = mediaItem!.artist;
-    final album = mediaItem!.album;
+    final artist = mediaItem!.artist ?? '';
+    final album = mediaItem!.album ?? '';
     final artUri = mediaItem!.artUri;
 
     _mediaSession.metadata = web.MediaMetadata(
       web.MediaMetadataInit(
         title: mediaItem!.title,
-        artist: artist.toString(),
-        album: album.toString(),
+        artist: artist,
+        album: album,
         artwork: [
-          web.MediaImage(src: artUri.toString(), sizes: '512x512'),
+          if (artUri != null)
+            web.MediaImage(src: artUri.toString(), sizes: '512x512'),
         ].toJS,
       ),
     );
