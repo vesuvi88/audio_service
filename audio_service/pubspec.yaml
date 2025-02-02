@@ -59,7 +59,9 @@ flutter:
         pluginClass: AudioServicePlugin
       ios:
         pluginClass: AudioServicePlugin
+        sharedDarwinSource: true
       macos:
         pluginClass: AudioServicePlugin
+        sharedDarwinSource: true
       web:
         default_package: audio_service_web
